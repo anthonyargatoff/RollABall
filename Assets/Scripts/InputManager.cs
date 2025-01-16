@@ -1,18 +1,12 @@
-using Unity.VisualScripting.InputSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class BallController : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
-  [SerializeField] private Rigidbody sphereRigidBody;
-  [SerializeField] private float ballSpeed = 2f;
+  public UnityEvent<Vector2> OnMove = new UnityEvent<Vector2>();
 
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Start()
-  {
-  }
-
-  // Update is called once per frame
-  void Update()
   {
     Vector2 inputVector = Vector2.zero;
     if (Input.GetKey(KeyCode.W))
@@ -32,7 +26,11 @@ public class BallController : MonoBehaviour
       inputVector += Vector2.down;
     }
 
-    Vector3 inputXYZPlane = new Vector3(inputVector.x, 0, inputVector.y);
-    sphereRigidBody.AddForce(inputXYZPlane * ballSpeed);
+  }
+
+  // Update is called once per frame
+  void Update()
+  {
+
   }
 }
