@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
   public UnityEvent<Vector2> OnMove = new UnityEvent<Vector2>();
+  public UnityEvent<Boolean> Jump = new UnityEvent<bool>();
 
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Start()
@@ -15,6 +17,7 @@ public class InputManager : MonoBehaviour
   void Update()
   {
     Vector2 inputVector = Vector2.zero;
+    bool jump = false;
     if (Input.GetKey(KeyCode.W))
     {
       inputVector += Vector2.up;
@@ -31,6 +34,11 @@ public class InputManager : MonoBehaviour
     {
       inputVector += Vector2.left;
     }
+    if (Input.GetKey(KeyCode.Space))
+    {
+      jump = true;
+    }
     OnMove?.Invoke(inputVector);
+    Jump?.Invoke(jump);
   }
 }
